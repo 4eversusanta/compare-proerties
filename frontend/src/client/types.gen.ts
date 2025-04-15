@@ -219,3 +219,48 @@ export type UtilsTestEmailData = {
 export type UtilsTestEmailResponse = Message
 
 export type UtilsHealthCheckResponse = boolean
+
+export type ProjectsReadProjectsData = {
+  limit?: number
+  skip?: number
+}
+
+export type SWOTPublic = {
+  id: string
+  category: string
+  description: string
+}
+
+export type AmenityPublic = {
+  id: string
+  name: string
+  description: string
+}
+export type ProjectPublic = {
+  id: string
+  developer_id: string
+  name: string
+  location: string | null
+  latitude: number | null
+  longitude: number | null
+  pricing_range: string | null
+  possession_date: string | null
+  project_type: string | null
+  website: string | null
+  reraId: string | null
+  area: string | null
+  image_url: string | null
+  key_amenities: string | null
+  description: string | null
+  developer: string | null
+  developer_reputation: string | null
+  developer_name: string
+  swots: Array<SWOTPublic>
+  amenities: Array<AmenityPublic>
+}
+
+export type ProjectsPublic = {
+  data: Array<ProjectPublic>
+  count: number
+}
+export type ProjectsReadProjectsResponse = ProjectsPublic

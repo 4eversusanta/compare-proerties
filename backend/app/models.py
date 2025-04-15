@@ -2,6 +2,7 @@ import uuid
 
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
+from typing import List, Optional
 
 
 # Shared properties
@@ -111,3 +112,79 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=40)
+
+class SWOTBase(SQLModel):
+    category: str = Field(max_length=32, nullable=False)  # E.g., Strength, Weakness
+    description: str = Field(nullable=False)
+
+class SWOT(SWOTBase, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    project_id: uuid.UUID = Field(foreign_key="project.id", nullable=False)
+
+class AmenityBase(SQLModel):
+    amenity_name: str = Field(max_length=128, nullable=False)
+    description: Optional[str] = Field(nullable=True)
+
+class Amenity(AmenityBase, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    project_id: uuid.UUID = Field(foreign_key="project.id", nullable=False)
+
+class SWOTPublic(SQLModel):
+    category: str
+    description: str
+
+class AmenityPublic(SQLModel):
+    amenity_name: str
+    description: Optional[str]
+
+class DeveloperBase(SQLModel):
+    name: str = Field(max_length=128, nullable=False)
+    reputation: Optional[str] = Field(max_length=256, nullable=True)  # Optional for nullable fields
+    additional_info: Optional[str] = Field(nullable=True)
+
+class Developer(DeveloperBase, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    projects: List["Project"] = Relationship(
+        back_populates="developer",
+        sa_relationship_kwargs={"cascade": "all, delete-orphan"}
+    )
+
+class ProjectBase(SQLModel):
+    name: str = Field(max_length=128, nullable=False)
+    location: Optional[str] = Field(max_length=128, nullable=True)
+    latitude: Optional[float] = Field(nullable=True)
+    longitude: Optional[float] = Field(nullable=True)
+    pricing_range: Optional[str] = Field(max_length=64, nullable=True)
+    reraId: Optional[str] = Field(max_length=128, nullable=True)
+    description: Optional[str] = Field(nullable=True)
+    area: Optional[str] = Field(nullable=True)
+    image_url: Optional[str] = Field(max_length=256, nullable=True)
+    possession_date: Optional[str] = Field(max_length=64, nullable=True)
+    project_type: Optional[str] = Field(max_length=128, nullable=True)
+    website: Optional[str] = Field(max_length=256, nullable=True)
+    key_amenities: Optional[str] = Field(nullable=True)
+
+
+
+class Project(ProjectBase, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    developer_id: uuid.UUID = Field(foreign_key="developer.id", nullable=False)
+    developer: Optional[Developer] = Relationship(back_populates="projects")
+    swots: List[SWOT] = Relationship(sa_relationship_kwargs={"cascade": "all, delete-orphan"})
+    amenities: List[Amenity] = Relationship(sa_relationship_kwargs={"cascade": "all, delete-orphan"})
+
+class ProjectPublic(ProjectBase):
+    id: uuid.UUID
+    developer_name: str
+    swots: List[SWOTPublic]
+    amenities: List[AmenityPublic]
+
+    class Config:
+        orm_mode = True
+
+class ProjectsPublic(SQLModel):
+    data: List[ProjectPublic]
+    count: int
+
+    class Config:
+        orm_mode = True

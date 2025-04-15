@@ -44,6 +44,8 @@ import type {
   UtilsTestEmailData,
   UtilsTestEmailResponse,
   UtilsHealthCheckResponse,
+  ProjectsReadProjectsData,
+  ProjectsReadProjectsResponse,
 } from "./types.gen"
 
 export class ItemsService {
@@ -159,6 +161,32 @@ export class ItemsService {
       url: "/api/v1/items/{id}",
       path: {
         id: data.id,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
+
+export class ProjectsService {
+  /**
+   * Retrieve Projects.
+   * @param data The data for the request.
+   * @param data.skip
+   * @param data.limit
+   * @returns ProjectsPublic Successful Response
+   * @throws ApiError
+   */
+  public static readProjects(
+    data: ProjectsReadProjectsData = {},
+  ): CancelablePromise<ProjectsReadProjectsResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/projects/",
+      query: {
+        skip: data.skip,
+        limit: data.limit,
       },
       errors: {
         422: "Validation Error",
