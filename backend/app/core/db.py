@@ -1,41 +1,48 @@
 import json
+import os
+import gdown
+import requests
 from sqlmodel import Session, create_engine, select
 from app.models import User, UserCreate, Developer, Project, SWOT, Amenity
 from app import crud
 from app.core.config import settings
-import gdown
-import os
+import shutil
 
 engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 
-# def load_sample_data_from_gdrive(json_file: str, session: Session) -> None:
 def load_sample_data_from_gdrive(gdrive_url: str, session: Session) -> None:
-    # Load JSON data
-    # with open(json_file, "r") as file:
-    #     data_list = json.load(file)
-
-    # Download the file from Google Drive
-    output_file = "/tmp/data.txt"  # Temporary location to save the file
-    # gdown.download(gdrive_url, output_file, quiet=False, fuzzy=True)
-    # gdrive_url = 'https://drive.google.com/file/d/1ZdQ9mrWUCbvYtiGnJ-FwdCRkQIsPPnb6/view?usp=drive_link'
-
-    gdown.download(gdrive_url, output_file, quiet=False,fuzzy=True)
-
-    # Check if the file exists and is not empty
-    if not os.path.exists(output_file) or os.path.getsize(output_file) == 0:
-        raise FileNotFoundError("Downloaded file is empty or missing. Check the Google Drive URL and permissions.")
+    """Load sample data from a Google Drive link."""
     
-    # Load JSON data
-    with open(output_file, "r") as file:
+    output_folder = "/tmp/public"
+
+    # Delete the folder if it exists
+    if os.path.exists(output_folder):
+        shutil.rmtree(output_folder)
+
+    gdown.download_folder(gdrive_url, output=output_folder)
+    
+    # # Iterate over files in the folder and call load_sample_data_from_file
+    for file_name in os.listdir(output_folder):
+        file_path = os.path.join(output_folder, file_name)
+        if os.path.isfile(file_path):  # Ensure it's a file
+            load_sample_data_from_file(file_path, session)
+
+def load_sample_data_from_file(file_path: str, session: Session) -> None:
+    """Load sample data from a local JSON file."""
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File not found: {file_path}")
+
+    with open(file_path, "r") as file:
         try:
             data_list = json.load(file)
         except json.JSONDecodeError as e:
-            raise ValueError(f"Failed to clean and parse JSON: {e}")
+            raise ValueError(f"Failed to parse JSON: {e}")
+
     for data in data_list:
         # Insert Users
         user = session.exec(
-                select(User).where(User.email == settings.FIRST_SUPERUSER)
-            ).first()
+            select(User).where(User.email == settings.FIRST_SUPERUSER)
+        ).first()
         if not user:
             user_in = UserCreate(
                 email=settings.FIRST_SUPERUSER,
@@ -43,7 +50,6 @@ def load_sample_data_from_gdrive(gdrive_url: str, session: Session) -> None:
                 is_superuser=True,
             )
             user = crud.create_user(session=session, user_create=user_in)
-
         # Insert Developers
         for developer_data in data.get("developers", []):
             developer = session.exec(select(Developer).where(Developer.name == developer_data["name"])).first()
@@ -59,14 +65,11 @@ def load_sample_data_from_gdrive(gdrive_url: str, session: Session) -> None:
 
         # Insert Projects
         for project_data in data.get("projects", []):
-            print("project_data", project_data)
             developer = session.exec(select(Developer).where(Developer.name == project_data["developer_name"])).first()
-            print("developer_data", developer)
             if not developer:
                 continue  # Skip if developer does not exist
 
             project = session.exec(select(Project).where(Project.name == project_data["name"])).first()
-            print("project", project)
             if not project:
                 project = Project(
                     name=project_data["name"],
@@ -124,7 +127,6 @@ def load_sample_data_from_gdrive(gdrive_url: str, session: Session) -> None:
                 session.add(amenity)
                 session.commit()
 
-# Usage
 def init_db(session: Session) -> None:
     # Tables should be created with Alembic migrations
     # But if you don't want to use migrations, create
@@ -133,7 +135,5 @@ def init_db(session: Session) -> None:
 
     # This works because the models are already imported and registered from app.models
     # SQLModel.metadata.create_all(engine)
-    # load_sample_data("/Users/susantasahoo/Downloads/recompare/full-stack-fastapi-template/backend/app/core/data.json", session)
-    
-    gdrive_url = 'https://drive.google.com/file/d/1a3nzL6nxqkJTUpvLgwRKDwhMuXc5D53B/view?usp=sharing'
+    gdrive_url = 'https://drive.google.com/drive/folders/1ICvXyow6vmT9Jiy91vSsfBiCXq1uh5Op'
     load_sample_data_from_gdrive(gdrive_url, session)

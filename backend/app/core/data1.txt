@@ -1,0 +1,53 @@
+[{
+  "users": [
+    {
+      "email": "susanta@example.com",
+      "password": "admin123",
+      "is_superuser": false
+    }
+  ],
+  "developers": [
+    {
+      "name": "Lodha Group",
+      "reputation": "High",
+      "additional_info": "A well-known developer in the industry."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Lodha Magnus",
+      "location": "Hinjewadi, Pune",
+      "latitude": 73.7417344,
+      "longitude": 73.7417344,
+      "pricing_range": "Rs 1.56cr - 1.68Cr",
+      "possession_date": "June 2027",
+      "project_type": "Apartments",
+      "website": "https://www.lodhagroup.com/projects/residential-property-in-pune/lodha-magnus-hinjewadi",
+      "reraId": "P52100000154",
+      "description": "Lodha Magnus is a luxurious residential project located in Wakad, Pune.",
+      "area": "1195 sq ft.",
+      "image_url": "https://www.lodhagroup.com/sites/default/files/projects/banner/Spotlight_Lodha-Magnus_1903x800.jpg",
+      "key_amenities": "Infinity Swimming Pool, Outdoor Fitness, Cricket pitch, Gym",
+      "developer_name": "Kings Marque Group"
+    }
+  ],
+  "swots": [
+    {
+      "category": "Strength",
+      "description": "Competitive pricing for the carpet area offered. \n Includes essential amenities suitable for Pros. \n Located in Wakad, offering good connectivity and infrastructure.",
+      "project_name": "Lodha Magnus"
+    },
+        {
+      "category": "Weakness",
+      "description": "Lacks some of the luxury amenities found in premium  projects.\n Less  brand recognition compared to larger developers.",
+      "project_name": "Lodha Magnus"
+    }
+  ],
+  "amenities": [
+    {
+      "amenity_name": "Swimming Pool",
+      "description": "Olympic-sized swimming pool with temperature control.",
+      "project_name": "Lodha Magnus"
+    }
+  ]
+}]
