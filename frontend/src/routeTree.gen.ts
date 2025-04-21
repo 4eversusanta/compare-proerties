@@ -16,6 +16,7 @@ import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as RecoverPasswordImport } from './routes/recover-password'
 import { Route as ProjectsImport } from './routes/projects'
 import { Route as LoginImport } from './routes/login'
+import { Route as ComparisionsImport } from './routes/comparisions'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutSettingsImport } from './routes/_layout/settings'
@@ -46,6 +47,11 @@ const ProjectsRoute = ProjectsImport.update({
 
 const LoginRoute = LoginImport.update({
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ComparisionsRoute = ComparisionsImport.update({
+  path: '/comparisions',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -80,6 +86,10 @@ declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/_layout': {
       preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/comparisions': {
+      preLoaderRoute: typeof ComparisionsImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -130,6 +140,7 @@ export const routeTree = rootRoute.addChildren([
     LayoutSettingsRoute,
     LayoutIndexRoute,
   ]),
+  ComparisionsRoute,
   LoginRoute,
   ProjectsRoute,
   RecoverPasswordRoute,

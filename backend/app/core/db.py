@@ -13,7 +13,7 @@ engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 def load_sample_data_from_gdrive(gdrive_url: str, session: Session) -> None:
     """Load sample data from a Google Drive link."""
     
-    output_folder = "/tmp/public"
+    output_folder = "/tmp/data"
 
     # Delete the folder if it exists
     if os.path.exists(output_folder):
@@ -135,5 +135,5 @@ def init_db(session: Session) -> None:
 
     # This works because the models are already imported and registered from app.models
     # SQLModel.metadata.create_all(engine)
-    gdrive_url = 'https://drive.google.com/drive/folders/1ICvXyow6vmT9Jiy91vSsfBiCXq1uh5Op'
+    gdrive_url = 'https://drive.google.com/drive/folders/1vZfHfKvwqgQGV_YjWsqVsuLc3ez7yNNY'
     load_sample_data_from_gdrive(gdrive_url, session)

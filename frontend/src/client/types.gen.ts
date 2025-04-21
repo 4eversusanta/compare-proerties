@@ -264,3 +264,10 @@ export type ProjectsPublic = {
   count: number
 }
 export type ProjectsReadProjectsResponse = ProjectsPublic
+
+export type ComparisionsReadComparisionsData = {
+  ids: Array<string>
+}
+export type ReportResponse = {
+  summary: string
+}

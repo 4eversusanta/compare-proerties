@@ -17,7 +17,7 @@
     {
       "name": "Lodha Magnus",
       "location": "Hinjewadi, Pune",
-      "latitude": 73.7417344,
+      "latitude": 18.5790599,
       "longitude": 73.7417344,
       "pricing_range": "Rs 1.56cr - 1.68Cr",
       "possession_date": "June 2027",

@@ -1,51 +1,46 @@
 import uuid
-from typing import Any
+from typing import Any, List
 
 from sqlalchemy.orm import selectinload
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from sqlmodel import func, select, Session, select
 
-
 from app.api.deps import CurrentUser, SessionDep
-from app.models import Project, ProjectPublic, ProjectsPublic, SWOTPublic, AmenityPublic, Message
+from app.models import Project, ProjectPublic, ProjectsPublic, SWOTPublic, AmenityPublic, ProjectIdsRequest
 
 from app.core.config import settings
 from app.core.openai_client import OpenAIClient
 
-router = APIRouter(prefix="/projects", tags=["projects"])
+router = APIRouter(prefix="/comparisions", tags=["comparisions"])
 
-@router.get("/", response_model=ProjectsPublic)
-def read_projects(
-    session: SessionDep, skip: int = 0, limit: int = 100
+
+@router.post("/", response_model=ProjectsPublic)
+def read_projects_by_ids(
+    session: SessionDep, request: ProjectIdsRequest
 ) -> Any:
     """
-    Retrieve projects with pagination.
-    - **skip**: Number of records to skip (used for pagination offset).
-    - **limit**: Maximum number of records to return.
+    Retrieve projects by a list of IDs.
+    - **ids**: List of project IDs to retrieve.
     """
+    ids = list(set(request.ids))
+    # Check if the number of IDs exceeds 5
+    if len(ids) > 5:
+        raise HTTPException(
+            status_code=400, 
+            detail="Invalid input: Too many IDs provided. Maximum allowed is 5."
+        )
 
-    # return ItemsPublic(data=items, count=count)
-
-    # Query to count total projects
-    count_statement = select(func.count()).select_from(Project)
+    count_statement = select(func.count()).select_from(Project).where(Project.id.in_(ids))
     count = session.exec(count_statement).one()
 
-    # Query to fetch paginated projects
-    # statement = select(Project).offset(skip).limit(limit)
-    # projects = session.exec(statement).all()
-
-    # return ProjectsPublic(data=projects, count=count)
-
-    # Query to fetch paginated projects with developer, SWOT, and amenities
     statement = (
         select(Project)
+        .where(Project.id.in_(ids))
         .options(
             selectinload(Project.developer),
             selectinload(Project.swots),
             selectinload(Project.amenities),
         )
-        .offset(skip)
-        .limit(limit)
     )
     projects = session.exec(statement).all()
 
@@ -81,19 +76,5 @@ def read_projects(
         )
         for project in projects
     ]
-
-    # openai_client = OpenAIClient(api_key=settings.OPENAI_API_KEY)
-    # projects_public_json = [project.json() for project in projects_public]
-    # prompt = "You are a real estate expert. Please generate three recommendations for a buyer comparing the following projects: " + \
-    #     ", ".join(projects_public_json)
-    # try:
-    #     response = openai_client.generate_summary(prompt)
-    #     print(response)
-    # except Exception as e:
-    #     return {
-    #         "data": [],
-    #         "count": count,
-    #         "error": f"Failed to generate summary: {str(e)}"
-    #     }
 
     return ProjectsPublic(data=projects_public, count=count)

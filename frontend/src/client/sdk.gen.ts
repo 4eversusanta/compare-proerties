@@ -46,10 +46,12 @@ import type {
   UtilsHealthCheckResponse,
   ProjectsReadProjectsData,
   ProjectsReadProjectsResponse,
+  ReportResponse,
+  ComparisionsReadComparisionsData,
 } from "./types.gen"
 
 export class ItemsService {
-  /**
+ /**
    * Read Items
    * Retrieve items.
    * @param data The data for the request.
@@ -188,6 +190,51 @@ export class ProjectsService {
         skip: data.skip,
         limit: data.limit,
       },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
+export class ComparisionsService {
+  /**
+   * Retrieve Report.
+   * @param data The data for the request.
+   * @param data.uuids List of UUIDs for the report.
+   * @returns ReportResponse Successful Response
+   * @throws ApiError
+   */
+  public static readComparisions(
+    data: ComparisionsReadComparisionsData ,
+  ): CancelablePromise<ProjectsReadProjectsResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/comparisions/",
+      body: data,
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
+
+export class ReportService {
+  /**
+   * Retrieve Report.
+   * @param data The data for the request.
+   * @param data.uuids List of UUIDs for the report.
+   * @returns ReportResponse Successful Response
+   * @throws ApiError
+   */
+  public static readReport(
+    data: ComparisionsReadComparisionsData ,
+  ): CancelablePromise<ReportResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/report/",
+      body: data,
+      mediaType: "application/json",
       errors: {
         422: "Validation Error",
       },

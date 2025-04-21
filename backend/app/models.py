@@ -1,6 +1,6 @@
 import uuid
 
-from pydantic import EmailStr
+from pydantic import EmailStr, BaseModel
 from sqlmodel import Field, Relationship, SQLModel
 from typing import List, Optional
 
@@ -188,3 +188,9 @@ class ProjectsPublic(SQLModel):
 
     class Config:
         orm_mode = True
+
+class ReportResponse(BaseModel):
+    summary: str
+    
+class ProjectIdsRequest(BaseModel):
+    ids: List[uuid.UUID]
