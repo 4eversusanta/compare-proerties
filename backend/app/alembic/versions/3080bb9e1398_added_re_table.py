@@ -31,31 +31,38 @@ def upgrade():
     # Project Table
     op.create_table(
         'project',
-         sa.Column('id', sa.UUID(as_uuid=True), primary_key=True),
+        sa.Column('id', sa.UUID(as_uuid=True), primary_key=True),
         sa.Column('name', AutoString(length=128), nullable=False, index=True),
         sa.Column('location', AutoString(length=128), nullable=True),
         sa.Column('latitude', sa.Float, nullable=True, index=True),
         sa.Column('longitude', sa.Float, nullable=True, index=True),
-        sa.Column('pricing_range', AutoString(length=64), nullable=True),
-        sa.Column('possession_date', AutoString(length=64), nullable=True),
+        sa.Column('min_price', sa.Integer, nullable=True),
+        sa.Column('max_price', sa.Integer, nullable=True),
+        sa.Column('possession_date', sa.Date, nullable=True),
         sa.Column('project_type', AutoString(length=128), nullable=True),
         sa.Column('website', AutoString(length=256), nullable=True),
         sa.Column('reraId', AutoString(length=128), nullable=True),
         sa.Column('description', sa.Text, nullable=True),
-        sa.Column('area', sa.Text, nullable=True),
-        sa.Column('image_url',AutoString(length=256), nullable=True),
+        sa.Column('area', sa.Integer, nullable=True),
         sa.Column('key_amenities', sa.Text, nullable=True),
         sa.Column('developer_id', sa.UUID(as_uuid=True), sa.ForeignKey('developer.id', ondelete="CASCADE"), nullable=False, index=True)
+    )
+
+    # Image URLs Table
+    op.create_table(
+        'project_image',
+        sa.Column('id', sa.UUID(as_uuid=True), primary_key=True),
+        sa.Column('project_id', sa.UUID(as_uuid=True), sa.ForeignKey('project.id', ondelete="CASCADE"), nullable=False, index=True),
+        sa.Column('image_url', AutoString(length=256), nullable=False)  # Store individual image URLs
     )
 
     # SWOT Table
     op.create_table(
         'swot',
         sa.Column('id', sa.UUID(as_uuid=True), primary_key=True),
-        sa.Column('category', AutoString(length=32), nullable=False, index=True), # E.g., Strength, Weakness
+        sa.Column('category', AutoString(length=32), nullable=False, index=True),  # E.g., Strength, Weakness
         sa.Column('description', sa.Text, nullable=False),
         sa.Column('project_id', sa.UUID(as_uuid=True), sa.ForeignKey('project.id', ondelete="CASCADE"), nullable=False, index=True)
-
     )
 
     # Optional: amenity Table
@@ -71,5 +78,6 @@ def upgrade():
 def downgrade():
     op.drop_table('amenity')
     op.drop_table('swot')
+    op.drop_table('project_image')
     op.drop_table('project')
     op.drop_table('developer')

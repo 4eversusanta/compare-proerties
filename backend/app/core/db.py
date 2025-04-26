@@ -1,31 +1,24 @@
 import json
 import os
 import gdown
-import requests
+from typing import Optional
+from datetime import datetime, date
 from sqlmodel import Session, create_engine, select
-from app.models import User, UserCreate, Developer, Project, SWOT, Amenity
+from app.models import User, UserCreate, Developer, Project, SWOT, Amenity, ProjectImage
 from app import crud
 from app.core.config import settings
 import shutil
 
 engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 
-def load_sample_data_from_gdrive(gdrive_url: str, session: Session) -> None:
-    """Load sample data from a Google Drive link."""
-    
-    output_folder = "/tmp/data"
-
-    # Delete the folder if it exists
-    if os.path.exists(output_folder):
-        shutil.rmtree(output_folder)
-
-    gdown.download_folder(gdrive_url, output=output_folder)
-    
-    # # Iterate over files in the folder and call load_sample_data_from_file
-    for file_name in os.listdir(output_folder):
-        file_path = os.path.join(output_folder, file_name)
-        if os.path.isfile(file_path):  # Ensure it's a file
-            load_sample_data_from_file(file_path, session)
+def extract_date(possession_date_str: str) -> Optional[date]:
+    for date_format in ["%b %Y", "%B %Y"]:  # Try abbreviated and full month names
+        try:
+            possession_date = datetime.strptime(possession_date_str, date_format).date()
+            return possession_date
+        except ValueError:
+            continue  # Try the next format
+    return None  # Return None if no format matches
 
 def load_sample_data_from_file(file_path: str, session: Session) -> None:
     """Load sample data from a local JSON file."""
@@ -50,6 +43,7 @@ def load_sample_data_from_file(file_path: str, session: Session) -> None:
                 is_superuser=True,
             )
             user = crud.create_user(session=session, user_create=user_in)
+        
         # Insert Developers
         for developer_data in data.get("developers", []):
             developer = session.exec(select(Developer).where(Developer.name == developer_data["name"])).first()
@@ -76,14 +70,14 @@ def load_sample_data_from_file(file_path: str, session: Session) -> None:
                     location=project_data["location"],
                     latitude=project_data["latitude"],
                     longitude=project_data["longitude"],
-                    pricing_range=project_data["pricing_range"],
-                    possession_date=project_data["possession_date"],
+                    min_price=project_data["min_price"],
+                    max_price=project_data["max_price"],
+                    possession_date=extract_date(project_data["possession_date"]),
                     project_type=project_data["project_type"],
                     website=project_data["website"],
                     reraId=project_data["reraId"],
                     description=project_data["description"],
                     area=project_data["area"],
-                    image_url=project_data["image_url"],
                     key_amenities=project_data["key_amenities"],
                     developer_id=developer.id
                 )
@@ -126,6 +120,24 @@ def load_sample_data_from_file(file_path: str, session: Session) -> None:
                 )
                 session.add(amenity)
                 session.commit()
+        
+        # Insert Image URLs
+        for image_data in data.get("project_images", []):
+            project = session.exec(select(Project).where(Project.name == image_data["project_name"])).first()
+            if not project:
+                continue  # Skip if project does not exist
+
+            image = session.exec(
+                select(ProjectImage).where(ProjectImage.image_url == image_data["image_url"]).where(ProjectImage.project_id == project.id)
+            ).first()
+
+            if not image:
+                image = ProjectImage(
+                    image_url=image_data["image_url"],
+                    project_id=project.id
+                )
+                session.add(image)
+                session.commit()
 
 def init_db(session: Session) -> None:
     # Tables should be created with Alembic migrations
@@ -135,5 +147,16 @@ def init_db(session: Session) -> None:
 
     # This works because the models are already imported and registered from app.models
     # SQLModel.metadata.create_all(engine)
-    gdrive_url = 'https://drive.google.com/drive/folders/1vZfHfKvwqgQGV_YjWsqVsuLc3ez7yNNY'
-    load_sample_data_from_gdrive(gdrive_url, session)
+    
+    # Delete the folder if it exists
+    if os.path.exists(settings.TEMP_DATA_DIR):
+        shutil.rmtree(settings.TEMP_DATA_DIR)
+
+    gdown.download_folder(settings.GDRIVE_DATA_FOLDER_URL, output=settings.TEMP_DATA_DIR)
+    
+    # # Iterate over files in the folder and call load_sample_data_from_file
+    for file_name in os.listdir(settings.TEMP_DATA_DIR):
+        file_path = os.path.join(settings.TEMP_DATA_DIR, file_name)
+        if os.path.isfile(file_path):  # Ensure it's a file
+            load_sample_data_from_file(file_path, session)
+    

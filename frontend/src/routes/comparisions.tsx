@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Container,
   EmptyState,
@@ -14,7 +15,7 @@ import { FiSearch } from "react-icons/fi";
 import { z } from "zod";
 
 import { ComparisionsService, ReportService } from "@/client";
-import PendingProjects from "@/components/Pending/PendingProjects";
+import PendingComparisions from "@/components/Pending/PendingComparisions";
 import PendingMap from "@/components/Pending/PendingMap";
 
 import PendingRecomendations from "@/components/Pending/PendingRecomendations";
@@ -27,6 +28,7 @@ import "leaflet/dist/leaflet.css";
 
 import { Icon } from "@chakra-ui/react"
 import { MdBackspace } from "react-icons/md";
+
 
 const projectsSearchSchema = z.object({
   ids: z
@@ -44,8 +46,8 @@ const projectsSearchSchema = z.object({
 function getProjectssQueryOptions({ ids }: { ids: string[] }) {
   return {
     queryFn: () =>
-      ComparisionsService.readComparisions({
-        ids: ids || [],
+      ComparisionsService.readProjectsByIds({
+        requestBody: { ids: ids || [] },
       }),
     queryKey: ["items", { ids }],
   };
@@ -53,8 +55,8 @@ function getProjectssQueryOptions({ ids }: { ids: string[] }) {
 function getProjectsReportOptions({ ids }: { ids: string[] }) {
   return {
     queryFn: () =>
-      ReportService.readReport({
-        ids: ids || [],
+      ReportService.readProjectsReportByIds({
+        requestBody: { ids: ids || [] },
       }),
     queryKey: ["report", { ids }],
   };
@@ -91,7 +93,7 @@ function Map({ projects }: { projects: ProjectPublic[] }) {
                   <b style="font-size: 16px;">${project.name}</b><br/>
                   <span style="font-size: 12px; color: gray;">${project.developer_name}</span><br/>
                   <span style="font-size: 12px; color: gray;">${project.area}</span><br/>
-                  <span style="font-size: 12px; color: gray;">${project.pricing_range}</span>
+                  <span style="font-size: 12px; color: gray;">${project.min_price} - ${project.max_price}</span>
                 </div>
               `);
         }
@@ -179,7 +181,7 @@ function ProjectsTable() {
   const items = data?.data ?? [];
 
   if (isLoading) {
-    return <PendingProjects />;
+    return <PendingComparisions />;
   }
   if (items.length === 0) {
     return (
@@ -236,11 +238,11 @@ function ProjectsTable() {
                   {item.location}
                 </Table.Cell>
                 <Table.Cell
-                  color={!item.pricing_range ? "gray" : "inherit"}
+                  color={!item.min_price ? "gray" : "inherit"}
                   truncate
                   maxW="30%"
                 >
-                  {item.pricing_range || "N/A"}
+                  {item.min_price || "N/A"} - {item.max_price || "N/A"}
                 </Table.Cell>
                 <Table.Cell
                   color={!item.area ? "gray" : "inherit"}
@@ -304,7 +306,12 @@ function ProjectsTable() {
                     <Table.Cell maxW="sm">
                       <Text fontWeight="bold">{swot.category}</Text>
                       <br />
-                      {swot.description}
+                      {swot.description.split(/\r\n/).map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))}
                     </Table.Cell>
                   </Table.Row>
                 ))}
@@ -317,7 +324,7 @@ function ProjectsTable() {
               mb={{ base: 4, md: 0 }} // Add margin on smaller screens
             >
               <img
-                src={item.image_url ?? ""}
+                src={item.images && item.images[0]?.image_url ? item.images[0].image_url : ""}
                 alt="Description of the image"
                 style={{
                   maxWidth: "100%",

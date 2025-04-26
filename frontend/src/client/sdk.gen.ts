@@ -4,6 +4,8 @@ import type { CancelablePromise } from "./core/CancelablePromise"
 import { OpenAPI } from "./core/OpenAPI"
 import { request as __request } from "./core/request"
 import type {
+  ComparisionsReadProjectsByIdsData,
+  ComparisionsReadProjectsByIdsResponse,
   ItemsReadItemsData,
   ItemsReadItemsResponse,
   ItemsCreateItemData,
@@ -23,6 +25,12 @@ import type {
   LoginResetPasswordResponse,
   LoginRecoverPasswordHtmlContentData,
   LoginRecoverPasswordHtmlContentResponse,
+  PrivateCreateUserData,
+  PrivateCreateUserResponse,
+  ProjectsReadProjectsData,
+  ProjectsReadProjectsResponse,
+  ReportReadProjectsReportByIdsData,
+  ReportReadProjectsReportByIdsResponse,
   UsersReadUsersData,
   UsersReadUsersResponse,
   UsersCreateUserData,
@@ -44,14 +52,35 @@ import type {
   UtilsTestEmailData,
   UtilsTestEmailResponse,
   UtilsHealthCheckResponse,
-  ProjectsReadProjectsData,
-  ProjectsReadProjectsResponse,
-  ReportResponse,
-  ComparisionsReadComparisionsData,
 } from "./types.gen"
 
+export class ComparisionsService {
+  /**
+   * Read Projects By Ids
+   * Retrieve projects by a list of IDs.
+   * - **ids**: List of project IDs to retrieve.
+   * @param data The data for the request.
+   * @param data.requestBody
+   * @returns ProjectsPublic Successful Response
+   * @throws ApiError
+   */
+  public static readProjectsByIds(
+    data: ComparisionsReadProjectsByIdsData,
+  ): CancelablePromise<ComparisionsReadProjectsByIdsResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/comparisions/",
+      body: data.requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
+
 export class ItemsService {
- /**
+  /**
    * Read Items
    * Retrieve items.
    * @param data The data for the request.
@@ -171,77 +200,6 @@ export class ItemsService {
   }
 }
 
-export class ProjectsService {
-  /**
-   * Retrieve Projects.
-   * @param data The data for the request.
-   * @param data.skip
-   * @param data.limit
-   * @returns ProjectsPublic Successful Response
-   * @throws ApiError
-   */
-  public static readProjects(
-    data: ProjectsReadProjectsData = {},
-  ): CancelablePromise<ProjectsReadProjectsResponse> {
-    return __request(OpenAPI, {
-      method: "GET",
-      url: "/api/v1/projects/",
-      query: {
-        skip: data.skip,
-        limit: data.limit,
-      },
-      errors: {
-        422: "Validation Error",
-      },
-    })
-  }
-}
-export class ComparisionsService {
-  /**
-   * Retrieve Report.
-   * @param data The data for the request.
-   * @param data.uuids List of UUIDs for the report.
-   * @returns ReportResponse Successful Response
-   * @throws ApiError
-   */
-  public static readComparisions(
-    data: ComparisionsReadComparisionsData ,
-  ): CancelablePromise<ProjectsReadProjectsResponse> {
-    return __request(OpenAPI, {
-      method: "POST",
-      url: "/api/v1/comparisions/",
-      body: data,
-      mediaType: "application/json",
-      errors: {
-        422: "Validation Error",
-      },
-    })
-  }
-}
-
-export class ReportService {
-  /**
-   * Retrieve Report.
-   * @param data The data for the request.
-   * @param data.uuids List of UUIDs for the report.
-   * @returns ReportResponse Successful Response
-   * @throws ApiError
-   */
-  public static readReport(
-    data: ComparisionsReadComparisionsData ,
-  ): CancelablePromise<ReportResponse> {
-    return __request(OpenAPI, {
-      method: "POST",
-      url: "/api/v1/report/",
-      body: data,
-      mediaType: "application/json",
-      errors: {
-        422: "Validation Error",
-      },
-    })
-  }
-}
-
 export class LoginService {
   /**
    * Login Access Token
@@ -340,6 +298,84 @@ export class LoginService {
       path: {
         email: data.email,
       },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
+
+export class PrivateService {
+  /**
+   * Create User
+   * Create a new user.
+   * @param data The data for the request.
+   * @param data.requestBody
+   * @returns UserPublic Successful Response
+   * @throws ApiError
+   */
+  public static createUser(
+    data: PrivateCreateUserData,
+  ): CancelablePromise<PrivateCreateUserResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/private/users/",
+      body: data.requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
+
+export class ProjectsService {
+  /**
+   * Read Projects
+   * Retrieve projects with pagination.
+   * - **skip**: Number of records to skip (used for pagination offset).
+   * - **limit**: Maximum number of records to return.
+   * @param data The data for the request.
+   * @param data.skip
+   * @param data.limit
+   * @returns ProjectsPublic Successful Response
+   * @throws ApiError
+   */
+  public static readProjects(
+    data: ProjectsReadProjectsData = {},
+  ): CancelablePromise<ProjectsReadProjectsResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/projects/",
+      query: {
+        skip: data.skip,
+        limit: data.limit,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
+
+export class ReportService {
+  /**
+   * Read Projects Report By Ids
+   * Retrieve report by a list of IDs.
+   * - **ids**: List of project IDs to retrieve.
+   * @param data The data for the request.
+   * @param data.requestBody
+   * @returns ReportResponse Successful Response
+   * @throws ApiError
+   */
+  public static readProjectsReportByIds(
+    data: ReportReadProjectsReportByIdsData,
+  ): CancelablePromise<ReportReadProjectsReportByIdsResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/report/",
+      body: data.requestBody,
+      mediaType: "application/json",
       errors: {
         422: "Validation Error",
       },

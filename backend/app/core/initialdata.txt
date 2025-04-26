@@ -24,14 +24,14 @@
       "location": "Wakad, Pune",
       "latitude": 18.598778,
       "longitude": 73.7271182,
-      "pricing_range": "Rs 1.56cr - 1.68Cr",
+      "min_price": 15600000,
+      "max_price": 16800000,
       "possession_date": "Dec 2026",
       "project_type": "Apartments",
       "website": "https://kingscountywakad.in",
       "reraId": "P52100000154",
       "description": "Kings County is a luxurious residential project located in Wakad, Pune.",
-      "area": "1195 sq ft.",
-      "image_url": "https://kingscountywakad.in/wp-content/uploads/al_opt_content/IMAGE/kingscountywakad.in//wp-content/uploads/2024/04/1.jpg.bv_resized_desktop.jpg.bv.webp?bv_host=kingscountywakad.in",
+      "area": 1195,
       "key_amenities": "Infinity Swimming Pool, Outdoor Fitness, Cricket pitch, Gym",
       "developer_name": "Kings Marque Group"
     },
@@ -40,14 +40,14 @@
       "location": "Wakad, Pune",
       "latitude": 18.5933421,
       "longitude": 73.7537458,
-      "pricing_range": "Rs 1.5cr - 1.58Cr",
+      "min_price": 15000000,
+      "max_price": 15800000,
       "possession_date": "Dec 2026",
       "project_type": "Apartments",
       "website": "https://www.anpultimus.com",
       "reraId": "P52100000154",
       "description": "ANP Ultimus is a premium residential project",
-      "area": "1148 sq ft.",
-      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStZikRuRgU618DmYWx4EkY-Pui8Km7bv4uVw&s",
+      "area": 1148,
       "key_amenities": "Infinity Swimming Pool, Landscaped Garden, Gym",
       "developer_name": "ANP Corp"
     }
@@ -55,22 +55,22 @@
   "swots": [
     {
       "category": "Strength",
-      "description": "Competitive pricing for the carpet area offered. \n Includes essential amenities suitable for Pros. \n Located in Wakad, offering good connectivity and infrastructure.",
+      "description": "Competitive pricing for the carpet area offered./\r\n/Includes essential amenities suitable for Pros./\r\n/Located in Wakad, offering good connectivity and infrastructure.",
       "project_name": "Kings County"
     },
         {
       "category": "Weakness",
-      "description": "Lacks some of the luxury amenities found in premium  projects.\n Less  brand recognition compared to larger developers.",
+      "description": "Lacks some of the luxury amenities found in premium  projects./\r\n/Less  brand recognition compared to larger developers.",
       "project_name": "Kings County"
     },
     {
       "category": "Strength",
-      "description": "Extensive range of premium amenities catering to all age  groups.\n Strategic location with excellent connectivity to major IT hubs and the Mumbai - Pune Highway.\n Developed by ANP Corp, known for quality construction and timely  delivery. ",
+      "description": "Extensive range of premium amenities catering to all age  groups./\r\n/Strategic location with excellent connectivity to major IT hubs and the Mumbai - Pune Highway.\n Developed by ANP Corp, known for quality construction and timely  delivery. ",
       "project_name": "ANP Ultimus"
     },
         {
       "category": "Weakness",
-      "description": "Higher price point compared to other projects in the vicinity.\n Premium pricing may limit flexibility in unit :  customization. ",
+      "description": "Higher price point compared to other projects in the vicinity./\r\n/Premium pricing may limit flexibility in unit :  customization. ",
       "project_name": "ANP Ultimus"
     }
   ],
@@ -79,6 +79,16 @@
       "amenity_name": "Swimming Pool",
       "description": "Olympic-sized swimming pool with temperature control.",
       "project_name": "Kings County"
+    }
+  ],
+  "project_images": [
+    {
+      "image_url": "https://kingscountywakad.in/wp-content/uploads/al_opt_content/IMAGE/kingscountywakad.in//wp-content/uploads/2024/04/1.jpg.bv_resized_desktop.jpg.bv.webp?bv_host=kingscountywakad.in",
+      "project_name": "Kings County"
+    },
+    {
+      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStZikRuRgU618DmYWx4EkY-Pui8Km7bv4uVw&s",
+      "project_name": "ANP Ultimus"
     }
   ]
 }]

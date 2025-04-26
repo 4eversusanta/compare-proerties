@@ -96,6 +96,10 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER_PASSWORD: str
 
     OPENAI_API_KEY: str
+    TEMP_DATA_DIR: str = "/tmp/data"
+    TEMP_PROMPTS_DIR: str = "/tmp/prompts"
+    GDRIVE_DATA_FOLDER_URL: str = "https://drive.google.com/drive/folders/1vZfHfKvwqgQGV_YjWsqVsuLc3ez7yNNY"
+    GDRIVE_PROMPTS_FOLDER_URL: str = "https://drive.google.com/drive/folders/1qZUpu6d0RWPGqJ5CF0VkwhFZL0kMMlNZ"
 
     def _check_default_secret(self, var_name: str, value: str | None) -> None:
         if value == "changethis":

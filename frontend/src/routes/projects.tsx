@@ -12,7 +12,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { FiSearch } from "react-icons/fi";
 import { z } from "zod";
 
-import { ProjectsService } from "@/client";
+import { ProjectsService, ProjectPublic } from "@/client";
 import PendingProjects from "@/components/Pending/PendingProjects";
 import PendingMap from "@/components/Pending/PendingMap";
 
@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/pagination.tsx";
 
 import { useEffect } from "react";
-import type { ProjectPublic } from "@/client/types.gen";
+// import type { ProjectPublic } from "@/client/types.gen";
 
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -73,7 +73,7 @@ function Map({ projects }: { projects: ProjectPublic[] }) {
                 <b style="font-size: 16px;">${project.name}</b><br/>
                 <span style="font-size: 12px; color: gray;">${project.developer_name}</span><br/>
                 <span style="font-size: 12px; color: gray;">${project.area}</span><br/>
-                <span style="font-size: 12px; color: gray;">${project.pricing_range}</span>
+                <span style="font-size: 12px; color: gray;">${project.min_price} - ${project.max_price} </span>
               </div>
             `);
         }
@@ -228,7 +228,7 @@ function ProjectsTable() {
                   {item.location}
                 </Text>
                 <Text textStyle="xs" color="gray.600" fontWeight="light">
-                  {item.pricing_range}
+                  {item.min_price} - {item.max_price}
                 </Text>
                 <Text textStyle="xs" color="gray.600" fontWeight="light">
                   {item.area}
@@ -249,7 +249,7 @@ function ProjectsTable() {
               height="120px"
             >
               <img
-                src={item.image_url ?? ""}
+                src={item.images && item.images[0]?.image_url ? item.images[0].image_url : ""}
                 alt="Description of the image"
                 style={{
                   width: "100%",
