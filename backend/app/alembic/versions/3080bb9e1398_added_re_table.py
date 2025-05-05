@@ -13,13 +13,22 @@ from sqlmodel.sql.sqltypes import AutoString
 
 # revision identifiers, used by Alembic.
 revision = '3080bb9e1398'
-down_revision = '1a31ce608336'
+down_revision = None
 branch_labels = None
 depends_on = None
 
 
 
 def upgrade():
+    # item Table
+    op.create_table(
+        "item",
+        sa.Column("description", AutoString(length=256), nullable=True),
+        sa.Column('id', sa.UUID(as_uuid=True), primary_key=True),
+        sa.Column("title", AutoString(length=256), nullable=False),
+        sa.Column("owner_id",sa.UUID(as_uuid=True), sa.ForeignKey('user.id', ondelete="CASCADE"), nullable=False, index=True)
+
+    )
     # Developer Table
     op.create_table(
         'developer',
@@ -81,3 +90,4 @@ def downgrade():
     op.drop_table('project_image')
     op.drop_table('project')
     op.drop_table('developer')
+    op.drop_table("item")

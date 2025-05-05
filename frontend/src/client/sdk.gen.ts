@@ -52,6 +52,7 @@ import type {
   UtilsTestEmailData,
   UtilsTestEmailResponse,
   UtilsHealthCheckResponse,
+  UtilsRunMigrationsAndSeedDataResponse,
 } from "./types.gen"
 
 export class ComparisionsService {
@@ -629,6 +630,19 @@ export class UtilsService {
     return __request(OpenAPI, {
       method: "GET",
       url: "/api/v1/utils/health-check/",
+    })
+  }
+
+  /**
+   * Run Migrations And Seed Data
+   * Run Alembic migrations and seed initial data.
+   * @returns unknown Successful Response
+   * @throws ApiError
+   */
+  public static runMigrationsAndSeedData(): CancelablePromise<UtilsRunMigrationsAndSeedDataResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/utils/run-migrations/",
     })
   }
 }
