@@ -56,3 +56,8 @@ def run_migrations_and_seed_data():
             status_code=500,
             detail=f"Error occurred: {e.stderr or str(e)}",
         )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"An unexpected error occurred: {str(e)}",
+        )
