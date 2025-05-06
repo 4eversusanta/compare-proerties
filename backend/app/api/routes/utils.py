@@ -38,6 +38,8 @@ def run_migrations_and_seed_data():
     Run Alembic migrations and seed initial data.
     """
     try:
+        env = {"PYTHONPATH": "/opt/render/project/src/backend"}
+        
         # Run Alembic migrations
         alembic_result = subprocess.run(
             ["alembic", "upgrade", "head"], check=True, capture_output=True, text=True
