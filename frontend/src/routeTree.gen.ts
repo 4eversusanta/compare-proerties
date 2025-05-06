@@ -142,10 +142,10 @@ export const routeTree = rootRoute.addChildren([
   ]),
   ComparisionsRoute,
   LoginRoute,
-  ProjectsRoute,
   RecoverPasswordRoute,
   ResetPasswordRoute,
   SignupRoute,
+  ProjectsRoute,
 ])
 
 /* prettier-ignore-end */
