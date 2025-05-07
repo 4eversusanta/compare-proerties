@@ -62,7 +62,7 @@ const LayoutRoute = LayoutImport.update({
 
 const LayoutIndexRoute = LayoutIndexImport.update({
   path: '/',
-  getParentRoute: () => ProjectsRoute,
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutSettingsRoute = LayoutSettingsImport.update({
@@ -142,10 +142,10 @@ export const routeTree = rootRoute.addChildren([
   ]),
   ComparisionsRoute,
   LoginRoute,
+  ProjectsRoute,
   RecoverPasswordRoute,
   ResetPasswordRoute,
   SignupRoute,
-  ProjectsRoute,
 ])
 
 /* prettier-ignore-end */

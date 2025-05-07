@@ -30,7 +30,7 @@ class OpenAIClient:
                 }
             ],
         )
-        response = completion.message
+        response = completion.content
         # print(response)
         return response
     
