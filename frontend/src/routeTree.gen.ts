@@ -62,7 +62,7 @@ const LayoutRoute = LayoutImport.update({
 
 const LayoutIndexRoute = LayoutIndexImport.update({
   path: '/',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => ProjectsRoute,
 } as any)
 
 const LayoutSettingsRoute = LayoutSettingsImport.update({
