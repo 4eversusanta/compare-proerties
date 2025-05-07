@@ -163,9 +163,12 @@ function ReportTable() {
       <Text textStyle="lg" fontWeight="bold">
         AI generated Recommendations
       </Text>
-      <Text as="span" textStyle="md" fontWeight="normal">
-        {summery}
-      </Text>
+      <Text
+        as="span"
+        textStyle="md"
+        fontWeight="normal"
+        dangerouslySetInnerHTML={{ __html: summery || "" }} // Ensure summery is a string
+      />
     </>
   );
 }
