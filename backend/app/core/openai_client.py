@@ -14,17 +14,38 @@ class OpenAIClient:
         # )
         # summary = response['choices'][0]['message']['content']
         # return summary
-        from openai import OpenAI
+        from huggingface_hub import InferenceClient
 
-        client = OpenAI( api_key= self.api_key)
-
-        response = client.responses.create(
-            model="gpt-4.1",
-            input=prompt
+        client = InferenceClient(
+            provider="novita",
+            api_key=self.api_key,
         )
 
-        print(response.output_text)
-        return response.output_text
+        completion = client.chat.completions.create(
+            model="deepseek-ai/DeepSeek-V3-0324",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+        )
+        response = completion.choices[0].message
+        # print(response)
+        return response
+    
+        # from openai import OpenAI
+
+        # client = OpenAI( api_key= self.api_key)
+
+        # response = client.responses.create(
+        #     model="gpt-4.1",
+        #     input=prompt
+        # )
+
+
+        # print(response.output_text)
+        # return response.output_text
 
     # def stream_responses(self, prompt: str): 
     #     from openai import OpenAI

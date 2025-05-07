@@ -10,7 +10,7 @@ from app.api.deps import CurrentUser, SessionDep
 from app.models import Project, ProjectPublic, ProjectsPublic
 
 from app.core.config import settings
-from app.core.openai_client import OpenAIClient
+# from app.core.openai_client import OpenAIClient
 
 router = APIRouter(prefix="/projects", tags=["projects"])
 

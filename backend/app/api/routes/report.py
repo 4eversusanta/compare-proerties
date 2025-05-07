@@ -112,8 +112,10 @@ def read_projects_report_by_ids(
     # """.format(", ".join(projects_public_json))
     prompt = system_prompt.format(", ".join(projects_public_json))
     try:
-        # response = openai_client.generate_summary(prompt)
-        response = "This is a mock response for the prompt: {}".format(prompt)
+        response = openai_client.generate_summary(prompt)
+
+        # print(completion.choices[0].message)
+        response = "This is a mock response for the prompt: {}".format(response)
         # print(response)
 
         return ReportResponse(summary=response)
