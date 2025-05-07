@@ -30,7 +30,7 @@ class OpenAIClient:
                 }
             ],
         )
-        response = completion.choices[0].message
+        response = completion.message
         # print(response)
         return response
     
