@@ -23,6 +23,7 @@ dependencies = [
     "pyjwt<3.0.0,>=2.8.0",
     "gdown",
     "openai",
+    "huggingface_hub"
 ]
 
 [tool.uv]

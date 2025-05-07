@@ -30,9 +30,14 @@ class OpenAIClient:
                 }
             ],
         )
-        response = completion.content
-        # print(response)
-        return response
+        result = completion.choices[0].message.content
+        # print(result)
+        if result.startswith("```html"):
+            result = result[7:]  # Remove the first 7 characters (```html)
+        if result.endswith("```"):
+            result = result[:-3]  # Remove the last 3 characters (```)
+        # print(result)
+        return result
     
         # from openai import OpenAI
 
