@@ -79,6 +79,11 @@ function Map({ projects }: { projects: ProjectPublic[] }) {
     if (!isLoading) {
       const map = L.map("map").setView([18.598778, 73.7271182], 13);
 
+      const customIcon = L.icon({
+        iconUrl: "/assets/images/marker-icon.png", // Path to your copied marker-icon.png
+        shadowUrl: "/assets/images/marker-shadow.png", // Path to your copied marker-shadow.png
+      });
+
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -86,7 +91,7 @@ function Map({ projects }: { projects: ProjectPublic[] }) {
 
       projects.forEach((project) => {
         if (project.latitude && project.longitude) {
-          L.marker([project.latitude, project.longitude])
+            L.marker([project.latitude, project.longitude], { icon: customIcon })
             .addTo(map)
             .bindPopup(`
                 <div>
