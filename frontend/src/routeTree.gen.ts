@@ -41,7 +41,7 @@ const RecoverPasswordRoute = RecoverPasswordImport.update({
 } as any)
 
 const ProjectsRoute = ProjectsImport.update({
-  path: '/projects',
+  path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -61,7 +61,7 @@ const LayoutRoute = LayoutImport.update({
 } as any)
 
 const LayoutIndexRoute = LayoutIndexImport.update({
-  path: '/',
+  path: '/home',
   getParentRoute: () => LayoutRoute,
 } as any)
 
