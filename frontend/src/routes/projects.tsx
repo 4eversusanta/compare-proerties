@@ -63,10 +63,15 @@ function Map({ projects }: { projects: ProjectPublic[] }) {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
-
+  
+      const customIcon = L.icon({
+        iconUrl: "/assets/images/marker-icon.png", // Path to your copied marker-icon.png
+        shadowUrl: "/assets/images/marker-shadow.png", // Path to your copied marker-shadow.png
+      });
+  
       projects.forEach((project) => {
         if (project.latitude && project.longitude) {
-          L.marker([project.latitude, project.longitude])
+          L.marker([project.latitude, project.longitude], { icon: customIcon })
             .addTo(map)
             .bindPopup(`
               <div>
