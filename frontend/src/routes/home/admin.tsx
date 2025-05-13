@@ -28,7 +28,7 @@ function getUsersQueryOptions({ page }: { page: number }) {
   }
 }
 
-export const Route = createFileRoute("/_layout/admin")({
+export const Route = createFileRoute("/home/admin")({
   component: Admin,
   validateSearch: (search) => usersSearchSchema.parse(search),
 })

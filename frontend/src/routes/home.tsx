@@ -5,7 +5,7 @@ import Navbar from "@/components/Common/Navbar"
 import Sidebar from "@/components/Common/Sidebar"
 import { isLoggedIn } from "@/hooks/useAuth"
 
-export const Route = createFileRoute("/_layout")({
+export const Route = createFileRoute("/home")({
   component: Layout,
   beforeLoad: async () => {
     if (!isLoggedIn()) {
@@ -30,4 +30,4 @@ function Layout() {
   )
 }
 
-export default Layout
+// export default Layout

@@ -16,12 +16,12 @@ import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as RecoverPasswordImport } from './routes/recover-password'
 import { Route as ProjectsImport } from './routes/projects'
 import { Route as LoginImport } from './routes/login'
+import { Route as HomeImport } from './routes/home'
 import { Route as ComparisionsImport } from './routes/comparisions'
-import { Route as LayoutImport } from './routes/_layout'
-import { Route as LayoutIndexImport } from './routes/_layout/index'
-import { Route as LayoutSettingsImport } from './routes/_layout/settings'
-import { Route as LayoutItemsImport } from './routes/_layout/items'
-import { Route as LayoutAdminImport } from './routes/_layout/admin'
+import { Route as HomeIndexImport } from './routes/home/index'
+import { Route as HomeSettingsImport } from './routes/home/settings'
+import { Route as HomeItemsImport } from './routes/home/items'
+import { Route as HomeAdminImport } from './routes/home/admin'
 
 // Create/Update Routes
 
@@ -41,7 +41,7 @@ const RecoverPasswordRoute = RecoverPasswordImport.update({
 } as any)
 
 const ProjectsRoute = ProjectsImport.update({
-  path: '/',
+  path: '/projects',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -50,46 +50,46 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const HomeRoute = HomeImport.update({
+  path: '/home',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ComparisionsRoute = ComparisionsImport.update({
   path: '/comparisions',
   getParentRoute: () => rootRoute,
 } as any)
 
-const LayoutRoute = LayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => rootRoute,
+const HomeIndexRoute = HomeIndexImport.update({
+  path: '/',
+  getParentRoute: () => HomeRoute,
 } as any)
 
-const LayoutIndexRoute = LayoutIndexImport.update({
-  path: '/home',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutSettingsRoute = LayoutSettingsImport.update({
+const HomeSettingsRoute = HomeSettingsImport.update({
   path: '/settings',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => HomeRoute,
 } as any)
 
-const LayoutItemsRoute = LayoutItemsImport.update({
+const HomeItemsRoute = HomeItemsImport.update({
   path: '/items',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => HomeRoute,
 } as any)
 
-const LayoutAdminRoute = LayoutAdminImport.update({
+const HomeAdminRoute = HomeAdminImport.update({
   path: '/admin',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => HomeRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_layout': {
-      preLoaderRoute: typeof LayoutImport
-      parentRoute: typeof rootRoute
-    }
     '/comparisions': {
       preLoaderRoute: typeof ComparisionsImport
+      parentRoute: typeof rootRoute
+    }
+    '/home': {
+      preLoaderRoute: typeof HomeImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -112,21 +112,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
-    '/_layout/admin': {
-      preLoaderRoute: typeof LayoutAdminImport
-      parentRoute: typeof LayoutImport
+    '/home/admin': {
+      preLoaderRoute: typeof HomeAdminImport
+      parentRoute: typeof HomeImport
     }
-    '/_layout/items': {
-      preLoaderRoute: typeof LayoutItemsImport
-      parentRoute: typeof LayoutImport
+    '/home/items': {
+      preLoaderRoute: typeof HomeItemsImport
+      parentRoute: typeof HomeImport
     }
-    '/_layout/settings': {
-      preLoaderRoute: typeof LayoutSettingsImport
-      parentRoute: typeof LayoutImport
+    '/home/settings': {
+      preLoaderRoute: typeof HomeSettingsImport
+      parentRoute: typeof HomeImport
     }
-    '/_layout/': {
-      preLoaderRoute: typeof LayoutIndexImport
-      parentRoute: typeof LayoutImport
+    '/home/': {
+      preLoaderRoute: typeof HomeIndexImport
+      parentRoute: typeof HomeImport
     }
   }
 }
@@ -134,13 +134,13 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
-  LayoutRoute.addChildren([
-    LayoutAdminRoute,
-    LayoutItemsRoute,
-    LayoutSettingsRoute,
-    LayoutIndexRoute,
-  ]),
   ComparisionsRoute,
+  HomeRoute.addChildren([
+    HomeAdminRoute,
+    HomeItemsRoute,
+    HomeSettingsRoute,
+    HomeIndexRoute,
+  ]),
   LoginRoute,
   ProjectsRoute,
   RecoverPasswordRoute,
