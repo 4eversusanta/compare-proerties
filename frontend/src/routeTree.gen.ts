@@ -62,8 +62,13 @@ const ComparisionsRoute = ComparisionsImport.update({
 
 const HomeIndexRoute = HomeIndexImport.update({
   path: '/',
-  getParentRoute: () => HomeRoute,
-} as any)
+  getParentRoute: () => rootRoute,
+  beforeLoad: async () => {
+    throw redirect({
+      to: '/projects',
+    });
+  },
+} as any);
 
 const HomeSettingsRoute = HomeSettingsImport.update({
   path: '/settings',

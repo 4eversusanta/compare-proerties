@@ -14,15 +14,16 @@ class OpenAIClient:
         # )
         # summary = response['choices'][0]['message']['content']
         # return summary
+        
         from huggingface_hub import InferenceClient
 
         client = InferenceClient(
-            provider="novita",
+            provider="cerebras",
             api_key=self.api_key,
         )
 
         completion = client.chat.completions.create(
-            model="deepseek-ai/DeepSeek-V3-0324",
+            model="meta-llama/Llama-4-Scout-17B-16E-Instruct",
             messages=[
                 {
                     "role": "user",
@@ -31,6 +32,7 @@ class OpenAIClient:
             ],
         )
         result = completion.choices[0].message.content
+        # result =   
         # print(result)
         if result.startswith("```html"):
             result = result[7:]  # Remove the first 7 characters (```html)
