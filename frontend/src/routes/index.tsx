@@ -47,7 +47,7 @@ function getProjectssQueryOptions({ page }: { page: number }) {
   };
 }
 
-export const Route = createFileRoute("/projects")({
+export const Route = createFileRoute("/")({
   component: Projects,
   validateSearch: (search) => projectsSearchSchema.parse(search),
 });

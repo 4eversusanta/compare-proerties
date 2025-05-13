@@ -14,7 +14,7 @@ const tabsConfig = [
   { value: "danger-zone", title: "Danger zone", component: DeleteAccount },
 ]
 
-export const Route = createFileRoute("/home/settings")({
+export const Route = createFileRoute("/_layout/settings")({
   component: UserSettings,
 })
 
