@@ -365,9 +365,9 @@ function Comparisions() {
         justifyContent="space-between"
         pt={5}
         >
-          <Link to="/">
+          <RouterLink to="/">
             <Image src={Logo} alt="Logo" maxW="3xs" p={2} />
-          </Link>
+          </RouterLink>
           {isLoggedIn() ? (
             <UserMenu />
           ) : (
