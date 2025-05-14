@@ -31,7 +31,7 @@ import "leaflet/dist/leaflet.css";
 import { useState } from "react"; 
 
 import UserMenu from "@/components/Common/UserMenu";
-import { isLoggedIn } from "@/hooks/useAuth"
+import { isLoggedIn } from "@/hooks/useAuth";
 
 const projectsSearchSchema = z.object({
   page: z.number().default(1),
@@ -298,7 +298,7 @@ function Projects() {
         justifyContent="space-between"
         pt={5}
         >
-          <Heading size="xl">
+          <Heading size="xl" color="teal" fontWeight="bold">
             Projects
           </Heading>
           {isLoggedIn() ? (
@@ -309,7 +309,6 @@ function Projects() {
             </Button>
           )}
         </Flex>
-
       <VStack align="stretch" pt={4}>
         <ProjectsTable />
       </VStack>

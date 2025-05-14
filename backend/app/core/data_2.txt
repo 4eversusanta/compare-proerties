@@ -1,0 +1,52 @@
+[{
+  "developers": [
+    {
+      "name": "Mantri Group",
+      "reputation": "High",
+      "additional_info": "A well-known developer in the industry."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Mantri Magnus",
+      "location": "Hinjewadi, Pune",
+      "latitude": 18.5790599,
+      "longitude": 73.7417344,
+      "min_price": 15700000,
+      "max_price": 18800000,
+      "possession_date": "June 2027",
+      "project_type": "Apartments",
+      "website": "https://www.Mantrigroup.com/projects/residential-property-in-pune/Mantri-magnus-hinjewadi",
+      "reraId": "P52100000154",
+      "description": "Mantri Magnus is a luxurious residential project located in Wakad, Pune.",
+      "area": 1195,
+      "key_amenities": "Infinity Swimming Pool, Outdoor Fitness, Cricket pitch, Gym",
+      "developer_name": "Mantri Group"
+    }
+  ],
+  "swots": [
+    {
+      "category": "Strength",
+      "description": "pricing for the carpet area offered./\r\n/Includes essential amenities suitable for Pros./\r\n/Located in Wakad, offering good connectivity and infrastructure.",
+      "project_name": "Mantri Magnus"
+    },
+        {
+      "category": "Weakness",
+      "description": "Some of the luxury amenities found in premium  projects./\r\n/Less  brand recognition compared to larger developers.",
+      "project_name": "Mantri Magnus"
+    }
+  ],
+  "amenities": [
+    {
+      "amenity_name": "Swimming Pool",
+      "description": "Olympic-sized swimming pool with temperature control.",
+      "project_name": "Mantri Magnus"
+    }
+  ],
+  "project_images": [
+    {
+      "image_url": "https://www.Mantrigroup.com/sites/default/files/projects/banner/Spotlight_Mantri-Magnus_1903x800.jpg",
+      "project_name": "Mantri Magnus"
+    }
+  ]
+}]

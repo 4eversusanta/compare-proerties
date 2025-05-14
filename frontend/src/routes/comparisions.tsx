@@ -8,9 +8,10 @@ import {
   VStack,
   HStack,
   Text,
+  Button
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { createFileRoute, Link as RouterLink } from "@tanstack/react-router";
+import { createFileRoute,useNavigate, Link as RouterLink } from "@tanstack/react-router";
 import { FiSearch } from "react-icons/fi";
 import { z } from "zod";
 
@@ -28,6 +29,8 @@ import "leaflet/dist/leaflet.css";
 
 import { Icon } from "@chakra-ui/react"
 import { MdBackspace } from "react-icons/md";
+import UserMenu from "@/components/Common/UserMenu";
+import { isLoggedIn } from "@/hooks/useAuth"
 
 
 const projectsSearchSchema = z.object({
@@ -351,17 +354,34 @@ function ProjectsTable() {
 }
 
 function Comparisions() {
+  const navigate = useNavigate();
   return (
     <Container maxW="full">
-      <VStack pt={12}>
+      <Flex
+        alignItems="center"
+        justifyContent="space-between"
+        pt={5}
+        >
+          <Heading size="xl" color="teal" fontWeight="bold">
+            Projects
+          </Heading>
+          {isLoggedIn() ? (
+            <UserMenu />
+          ) : (
+            <Button variant="ghost" size="sm" onClick={() => navigate({ to: "/login" })}>
+              Login/Signup
+            </Button>
+          )}
+        </Flex>
+      <VStack>
         <HStack w="100%">
           <RouterLink to="/" className="main-link">
-            <Icon size="lg">
+            <Icon size="sm">
               <MdBackspace />
             </Icon>
           </RouterLink>
           <Flex flex="1">
-            <Heading size="lg">Comparisions</Heading>
+            <Heading size="md">Comparisions</Heading>
           </Flex>
         </HStack>
       </VStack>
