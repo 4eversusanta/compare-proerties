@@ -355,7 +355,7 @@ function Comparisions() {
     <Container maxW="full">
       <VStack pt={12}>
         <HStack w="100%">
-          <RouterLink to="/projects" className="main-link">
+          <RouterLink to="/" className="main-link">
             <Icon size="lg">
               <MdBackspace />
             </Icon>
