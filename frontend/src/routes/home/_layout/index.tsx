@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router"
 
 import useAuth from "@/hooks/useAuth"
 
-export const Route = createFileRoute("/_layout/")({
+export const Route = createFileRoute("/home/_layout/")({
   component: Dashboard,
 })
 
@@ -17,7 +17,7 @@ function Dashboard() {
           <Text fontSize="2xl" truncate maxW="sm">
             Hi, {currentUser?.full_name || currentUser?.email} 👋🏼
           </Text>
-          <Text>Welcome back, nice to see you again!</Text>
+          <Text>Welcome back, nice to seee you again!</Text>
         </Box>
       </Container>
     </>

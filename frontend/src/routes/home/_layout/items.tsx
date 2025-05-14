@@ -36,7 +36,7 @@ function getItemsQueryOptions({ page }: { page: number }) {
   }
 }
 
-export const Route = createFileRoute("/_layout/items")({
+export const Route = createFileRoute("/home/_layout/items")({
   component: Items,
   validateSearch: (search) => itemsSearchSchema.parse(search),
 })

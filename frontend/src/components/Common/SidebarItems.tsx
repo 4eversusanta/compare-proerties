@@ -7,9 +7,9 @@ import type { IconType } from "react-icons/lib"
 import type { UserPublic } from "@/client"
 
 const items = [
-  { icon: FiHome, title: "Dashboard", path: "/" },
-  { icon: FiBriefcase, title: "Items", path: "/items" },
-  { icon: FiSettings, title: "User Settings", path: "/settings" },
+  { icon: FiHome, title: "Dashboard", path: "/home" },
+  { icon: FiBriefcase, title: "Items", path: "/home/items" },
+  { icon: FiSettings, title: "User Settings", path: "/home/settings" },
 ]
 
 interface SidebarItemsProps {
@@ -27,7 +27,7 @@ const SidebarItems = ({ onClose }: SidebarItemsProps) => {
   const currentUser = queryClient.getQueryData<UserPublic>(["currentUser"])
 
   const finalItems: Item[] = currentUser?.is_superuser
-    ? [...items, { icon: FiUsers, title: "Admin", path: "/admin" }]
+    ? [...items, { icon: FiUsers, title: "Admin", path: "/home/admin" }]
     : items
 
   const listItems = finalItems.map(({ icon, title, path }) => (

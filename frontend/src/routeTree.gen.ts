@@ -15,13 +15,14 @@ import { Route as SignupImport } from './routes/signup'
 import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as RecoverPasswordImport } from './routes/recover-password'
 import { Route as LoginImport } from './routes/login'
+import { Route as HomeImport } from './routes/home'
 import { Route as ComparisionsImport } from './routes/comparisions'
-import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
-import { Route as LayoutIndexImport } from './routes/_layout/index'
-import { Route as LayoutSettingsImport } from './routes/_layout/settings'
-import { Route as LayoutItemsImport } from './routes/_layout/items'
-import { Route as LayoutAdminImport } from './routes/_layout/admin'
+import { Route as HomeLayoutImport } from './routes/home/_layout'
+import { Route as HomeLayoutIndexImport } from './routes/home/_layout/index'
+import { Route as HomeLayoutSettingsImport } from './routes/home/_layout/settings'
+import { Route as HomeLayoutItemsImport } from './routes/home/_layout/items'
+import { Route as HomeLayoutAdminImport } from './routes/home/_layout/admin'
 
 // Create/Update Routes
 
@@ -45,13 +46,13 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ComparisionsRoute = ComparisionsImport.update({
-  path: '/comparisions',
+const HomeRoute = HomeImport.update({
+  path: '/home',
   getParentRoute: () => rootRoute,
 } as any)
 
-const LayoutRoute = LayoutImport.update({
-  id: '/_layout',
+const ComparisionsRoute = ComparisionsImport.update({
+  path: '/comparisions',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,24 +61,29 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const LayoutIndexRoute = LayoutIndexImport.update({
-  path: '',
-  getParentRoute: () => LayoutRoute,
+const HomeLayoutRoute = HomeLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => HomeRoute,
 } as any)
 
-const LayoutSettingsRoute = LayoutSettingsImport.update({
+const HomeLayoutIndexRoute = HomeLayoutIndexImport.update({
+  path: '/',
+  getParentRoute: () => HomeLayoutRoute,
+} as any)
+
+const HomeLayoutSettingsRoute = HomeLayoutSettingsImport.update({
   path: '/settings',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => HomeLayoutRoute,
 } as any)
 
-const LayoutItemsRoute = LayoutItemsImport.update({
+const HomeLayoutItemsRoute = HomeLayoutItemsImport.update({
   path: '/items',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => HomeLayoutRoute,
 } as any)
 
-const LayoutAdminRoute = LayoutAdminImport.update({
+const HomeLayoutAdminRoute = HomeLayoutAdminImport.update({
   path: '/admin',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => HomeLayoutRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -88,12 +94,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_layout': {
-      preLoaderRoute: typeof LayoutImport
-      parentRoute: typeof rootRoute
-    }
     '/comparisions': {
       preLoaderRoute: typeof ComparisionsImport
+      parentRoute: typeof rootRoute
+    }
+    '/home': {
+      preLoaderRoute: typeof HomeImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -112,21 +118,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
-    '/_layout/admin': {
-      preLoaderRoute: typeof LayoutAdminImport
-      parentRoute: typeof LayoutImport
+    '/home/_layout': {
+      preLoaderRoute: typeof HomeLayoutImport
+      parentRoute: typeof HomeImport
     }
-    '/_layout/items': {
-      preLoaderRoute: typeof LayoutItemsImport
-      parentRoute: typeof LayoutImport
+    '/home/_layout/admin': {
+      preLoaderRoute: typeof HomeLayoutAdminImport
+      parentRoute: typeof HomeLayoutImport
     }
-    '/_layout/settings': {
-      preLoaderRoute: typeof LayoutSettingsImport
-      parentRoute: typeof LayoutImport
+    '/home/_layout/items': {
+      preLoaderRoute: typeof HomeLayoutItemsImport
+      parentRoute: typeof HomeLayoutImport
     }
-    '/_layout/': {
-      preLoaderRoute: typeof LayoutIndexImport
-      parentRoute: typeof LayoutImport
+    '/home/_layout/settings': {
+      preLoaderRoute: typeof HomeLayoutSettingsImport
+      parentRoute: typeof HomeLayoutImport
+    }
+    '/home/_layout/': {
+      preLoaderRoute: typeof HomeLayoutIndexImport
+      parentRoute: typeof HomeLayoutImport
     }
   }
 }
@@ -135,13 +145,15 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  LayoutRoute.addChildren([
-    LayoutAdminRoute,
-    LayoutItemsRoute,
-    LayoutSettingsRoute,
-    LayoutIndexRoute,
-  ]),
   ComparisionsRoute,
+  HomeRoute.addChildren([
+    HomeLayoutRoute.addChildren([
+      HomeLayoutAdminRoute,
+      HomeLayoutItemsRoute,
+      HomeLayoutSettingsRoute,
+      HomeLayoutIndexRoute,
+    ]),
+  ]),
   LoginRoute,
   RecoverPasswordRoute,
   ResetPasswordRoute,

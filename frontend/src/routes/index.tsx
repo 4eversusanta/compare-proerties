@@ -57,7 +57,7 @@ function Map({ projects }: { projects: ProjectPublic[] }) {
 
   useEffect(() => {
     if (!isLoading) {
-      const map = L.map("map").setView([18.598778, 73.7271182], 13);
+      const map = L.map("map").setView([18.598778, 73.7271182], 12);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
