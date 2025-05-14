@@ -8,7 +8,9 @@ import {
   VStack,
   HStack,
   Text,
-  Button
+  Button,
+  Image,
+  Link
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute,useNavigate, Link as RouterLink } from "@tanstack/react-router";
@@ -30,7 +32,8 @@ import "leaflet/dist/leaflet.css";
 import { Icon } from "@chakra-ui/react"
 import { MdBackspace } from "react-icons/md";
 import UserMenu from "@/components/Common/UserMenu";
-import { isLoggedIn } from "@/hooks/useAuth"
+import { isLoggedIn } from "@/hooks/useAuth";
+import Logo from "/assets/images/fastapi-logo.png";
 
 
 const projectsSearchSchema = z.object({
@@ -362,9 +365,9 @@ function Comparisions() {
         justifyContent="space-between"
         pt={5}
         >
-          <Heading size="xl" color="teal" fontWeight="bold">
-            Projects
-          </Heading>
+          <Link to="/">
+            <Image src={Logo} alt="Logo" maxW="3xs" p={2} />
+          </Link>
           {isLoggedIn() ? (
             <UserMenu />
           ) : (

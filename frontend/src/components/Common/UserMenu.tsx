@@ -19,9 +19,9 @@ const UserMenu = () => {
       <Flex>
         <MenuRoot>
           <MenuTrigger asChild p={2}>
-            <Button data-testid="user-menu" variant="solid" maxW="sm" truncate>
+            <Button data-testid="user-menu" variant="plain" maxW="sm" truncate>
               <FaUserAstronaut fontSize="18" />
-              <Text>{user?.full_name || "User"}</Text>
+              <Text>{user?.full_name}</Text>
             </Button>
           </MenuTrigger>
 
@@ -36,6 +36,19 @@ const UserMenu = () => {
               >
                 <FiUser fontSize="18px" />
                 <Box flex="1">My Profile</Box>
+              </MenuItem>
+            </Link>
+
+            <Link to="/home/items">
+              <MenuItem
+                closeOnSelect
+                value="My favorites"
+                gap={2}
+                py={2}
+                style={{ cursor: "pointer" }}
+              >
+                <FiUser fontSize="18px" />
+                <Box flex="1">My Favorites</Box>
               </MenuItem>
             </Link>
 
