@@ -30,6 +30,9 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useState } from "react"; 
 
+import UserMenu from "@/components/Common/UserMenu";
+import { isLoggedIn } from "@/hooks/useAuth"
+
 const projectsSearchSchema = z.object({
   page: z.number().default(1),
 });
@@ -286,11 +289,27 @@ function ProjectsTable() {
 }
 
 function Projects() {
+  const navigate = useNavigate();
+
   return (
     <Container maxW="full">
-      <Heading size="lg" pt={12}>
-        Projects
-      </Heading>
+      <Flex
+        alignItems="center"
+        justifyContent="space-between"
+        pt={5}
+        >
+          <Heading size="xl">
+            Projects
+          </Heading>
+          {isLoggedIn() ? (
+            <UserMenu />
+          ) : (
+            <Button variant="ghost" size="sm" onClick={() => navigate({ to: "/login" })}>
+              Login/Signup
+            </Button>
+          )}
+        </Flex>
+
       <VStack align="stretch" pt={4}>
         <ProjectsTable />
       </VStack>
