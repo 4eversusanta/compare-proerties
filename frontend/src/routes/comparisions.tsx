@@ -216,7 +216,7 @@ function ProjectsTable() {
 
   return (
     <>
-      <VStack align="center" pt={2}>
+      <VStack align="center">
         <Map projects={items} />
       </VStack>
       <Flex overflowX="auto">
@@ -362,10 +362,10 @@ function Comparisions() {
       <Flex
         alignItems="center"
         justifyContent="space-between"
-        pt={5}
+        pt={2}
         >
           <RouterLink to="/">
-            <Image src={Logo} alt="Logo" maxW="3xs" p={2} />
+            <Image  height="50px" src={Logo} alt="Logo" maxW="3xs" />
           </RouterLink>
           {isLoggedIn() ? (
             <UserMenu />
@@ -375,6 +375,9 @@ function Comparisions() {
             </Button>
           )}
         </Flex>
+      <VStack align="stretch" pt={2}>
+        <ProjectsTable />
+      </VStack>
       <VStack>
         <HStack w="100%">
           <RouterLink to="/" className="main-link">
@@ -387,10 +390,7 @@ function Comparisions() {
           </Flex>
         </HStack>
       </VStack>
-      <VStack align="stretch" pt={4}>
-        <ProjectsTable />
-      </VStack>
-      <VStack align="stretch" pt={4}>
+      <VStack align="stretch" pt={2}>
         <ReportTable />
       </VStack>
     </Container>

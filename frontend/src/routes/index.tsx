@@ -297,13 +297,12 @@ function ProjectsTable() {
 
 function Projects() {
   const navigate = useNavigate();
-
   return (
     <Container maxW="full">
       <Flex
         alignItems="center"
         justifyContent="space-between"
-        pt={5}
+        pt={2}
         >
           <Image src={Logo} alt="Logo" maxW="3xs" height="50px"/>
 
@@ -315,7 +314,7 @@ function Projects() {
             </Button>
           )}
         </Flex>
-      <VStack align="stretch" pt={4}>
+      <VStack align="stretch">
         <ProjectsTable />
       </VStack>
     </Container>

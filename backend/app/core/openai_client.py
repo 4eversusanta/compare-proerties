@@ -41,7 +41,6 @@ class OpenAIClient:
                 <style>
                     body {
                     font-family: sans-serif;
-                    padding: 20px;
                     }
                     .comparison-section {
                     max-width: 700px;
