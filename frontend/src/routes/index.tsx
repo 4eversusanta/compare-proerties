@@ -183,6 +183,7 @@ function ProjectsTable() {
       </VStack>
       <Flex justifyContent="end" mt={4}>
       <Button
+        size="xs"
         onClick={handleButtonClick}
         disabled={selectedItems.length < 2 || selectedItems.length > 5}
         style={{
@@ -204,7 +205,6 @@ function ProjectsTable() {
       <Flex direction="column">
         {items?.map((item) => (
           <Flex
-            direction={{ base: "column-reverse", md: "row" }} // Stack on small screens, side-by-side on larger screens
             justifyContent="space-between"
             alignItems="stretch"
             mt={4}
@@ -230,20 +230,26 @@ function ProjectsTable() {
                 <Text textStyle="lg" fontWeight="bold">
                   {item.name}
                 </Text>
-                <Text textStyle="sm" color="gray.600" fontWeight="bold">
+                <Text textStyle="sm" fontWeight="bold">
                   {item.developer_name}
                 </Text>
-                <Text textStyle="sm" color="gray.600" fontWeight="medium">
+                <Text textStyle="sm" fontWeight="medium">
                   {item.location}
                 </Text>
-                <Text textStyle="xs" color="gray.600" fontWeight="light">
-                  {item.min_price} - {item.max_price}
-                </Text>
-                <Text textStyle="xs" color="gray.600" fontWeight="light">
-                  {item.area}
-                </Text>
+                <Flex direction="row" alignItems="center">
+                  <Text fontWeight="bold" mr="1">Rs</Text> 
+                  <Text textStyle="sm" fontWeight="light"> {item.min_price} - </Text>
+                  <Text fontWeight="bold" mr="1">Rs</Text> 
+                  <Text textStyle="sm" fontWeight="light"> {item.max_price}</Text>
+                </Flex>
+                <Flex direction="row" alignItems="center" >
+                  <Text fontWeight="bold" mr="2">Area in sq ft:</Text>
+                  <Text>
+                    {item.area}
+                  </Text>
+                </Flex>
                 <br/>
-                <Text textStyle="sm" color="gray.600" fontWeight="semibold" truncate>
+                <Text textStyle="sm" fontWeight="normal">
                   {item.description}
                 </Text>
               </Flex>
@@ -299,7 +305,7 @@ function Projects() {
         justifyContent="space-between"
         pt={5}
         >
-          <Image src={Logo} alt="Logo" maxW="3xs" p={2} />
+          <Image src={Logo} alt="Logo" maxW="3xs" height="50px"/>
 
           {isLoggedIn() ? (
             <UserMenu />

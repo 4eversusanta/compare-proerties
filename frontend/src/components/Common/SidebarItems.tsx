@@ -7,9 +7,9 @@ import type { IconType } from "react-icons/lib"
 import type { UserPublic } from "@/client"
 
 const items = [
-  { icon: FiHome, title: "Dashboard", path: "/home" },
-  { icon: FiBriefcase, title: "Items", path: "/home/items" },
-  { icon: FiSettings, title: "User Settings", path: "/home/settings" },
+  { icon: FiHome, title: "Dashboard", path: "/" },
+  { icon: FiBriefcase, title: "My Favorites", path: "/home/items" },
+  { icon: FiSettings, title: "My Profile", path: "/home/settings" },
 ]
 
 interface SidebarItemsProps {

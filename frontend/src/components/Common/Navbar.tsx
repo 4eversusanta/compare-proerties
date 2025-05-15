@@ -19,7 +19,7 @@ function Navbar() {
       top={0}
     >
       <Link to="/">
-        <Image src={Logo} alt="Logo" maxW="3xs" />
+        <Image height="50px" src={Logo} alt="Logo" maxW="3xs" />
       </Link>
       <Flex alignItems="center">
         <UserMenu />
