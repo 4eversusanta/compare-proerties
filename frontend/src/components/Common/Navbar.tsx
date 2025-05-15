@@ -1,4 +1,4 @@
-import { Flex, Image, useBreakpointValue, Container } from "@chakra-ui/react"
+import { Flex, Image, Container } from "@chakra-ui/react"
 import { Link } from "@tanstack/react-router"
 
 import Logo from "/assets/images/fastapi-logo.png"
