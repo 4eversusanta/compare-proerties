@@ -6,6 +6,7 @@ import { FiLogOut, FiUser } from "react-icons/fi"
 import useAuth from "@/hooks/useAuth"
 import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from "../ui/menu"
 import { useQueryClient } from "@tanstack/react-query"
+import type { UserPublic } from "@/client"
 
 const UserMenu = () => {
   const { user, logout } = useAuth()

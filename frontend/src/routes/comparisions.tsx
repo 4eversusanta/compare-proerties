@@ -3,10 +3,8 @@ import {
   Container,
   EmptyState,
   Flex,
-  Heading,
   Table,
   VStack,
-  HStack,
   Text,
   Button,
   Image,
@@ -28,8 +26,6 @@ import type { ProjectPublic } from "@/client/types.gen";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-import { Icon } from "@chakra-ui/react"
-import { MdBackspace } from "react-icons/md";
 import UserMenu from "@/components/Common/UserMenu";
 import { isLoggedIn } from "@/hooks/useAuth";
 import Logo from "/assets/images/fastapi-logo.png";
