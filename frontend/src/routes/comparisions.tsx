@@ -378,7 +378,7 @@ function Comparisions() {
       <VStack align="stretch" pt={2}>
         <ProjectsTable />
       </VStack>
-      <VStack>
+      {/* <VStack>
         <HStack w="100%">
           <RouterLink to="/" className="main-link">
             <Icon size="sm">
@@ -389,7 +389,7 @@ function Comparisions() {
             <Heading size="md">Comparisions</Heading>
           </Flex>
         </HStack>
-      </VStack>
+      </VStack> */}
       <VStack align="stretch" pt={2}>
         <ReportTable />
       </VStack>

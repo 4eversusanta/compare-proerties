@@ -1,0 +1,52 @@
+[{
+  "developers": [
+    {
+      "name": "Sobha Group",
+      "reputation": "High",
+      "additional_info": "A well-known developer in the industry."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Sobha Ambition",
+      "location": "Hinjewadi, Pune",
+      "latitude": 18.5730599,
+      "longitude": 73.7457344,
+      "min_price": 15700000,
+      "max_price": 18800000,
+      "possession_date": "June 2027",
+      "project_type": "Apartments",
+      "website": "https://www.sobhagroup.com/projects/residential-property-in-pune/Sobha-Ambition-hinjewadi",
+      "reraId": "P52100000154",
+      "description": "Sobha Ambition is a luxurious residential project located in Wakad, Pune.",
+      "area": 1195,
+      "key_amenities": "Infinity Swimming Pool, Outdoor Fitness, Cricket pitch, Gym",
+      "developer_name": "Sobha Group"
+    }
+  ],
+  "swots": [
+    {
+      "category": "Strength",
+      "description": "pricing for the carpet area offered.Includes essential amenities suitable for Pros.Located in Wakad, offering good connectivity and infrastructure.",
+      "project_name": "Sobha Ambition"
+    },
+        {
+      "category": "Weakness",
+      "description": "Some of the luxury amenities found in premium  projects.Less  brand recognition compared to larger developers.",
+      "project_name": "Sobha Ambition"
+    }
+  ],
+  "amenities": [
+    {
+      "amenity_name": "Swimming Pool",
+      "description": "Olympic-sized swimming pool with temperature control.",
+      "project_name": "Sobha Ambition"
+    }
+  ],
+  "project_images": [
+    {
+      "image_url": "https://www.sobhagroup.com/sites/default/files/projects/banner/Spotlight_Sobha-Ambition_1903x800.jpg",
+      "project_name": "Sobha Ambition"
+    }
+  ]
+}]
